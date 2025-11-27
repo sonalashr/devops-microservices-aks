@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: REPLACE_WITH_ACR/user-service:latest
+        image: image: mydevopsdemo01.azurecr.io/user-service:v1
         ports:
         - containerPort: 3001
 ---
