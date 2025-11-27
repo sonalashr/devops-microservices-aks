@@ -1,3 +1,15 @@
+const appInsights = require("applicationinsights");
+
+if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+  appInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+    .setAutoCollectRequests(true)
+    .setAutoCollectDependencies(true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectConsole(true, true)
+    .start();
+  console.log("Application Insights connected");
+}
+
 const express = require('express');
 const request = require('superagent');
 const app = express();
