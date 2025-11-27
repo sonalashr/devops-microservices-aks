@@ -1,18 +1,12 @@
-name: CI - Build & Push Images
+name: CI - Build and Push Images
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'user-service/**'
-      - 'order-service/**'
-      - 'api-gateway/**'
-      - '.github/workflows/ci.yaml'
-  workflow_dispatch:
+    branches: [ "main" ]
 
 env:
-  REGISTRY: mydevopsdemo01.azurecr.io
-  IMAGE_TAG: v1
+  ACR_NAME: ${{ secrets.ACR_NAME }}
+  ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
 
 jobs:
   build-and-push:
@@ -22,27 +16,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Log in to Azure Container Registry
-        uses: docker/login-action@v3
+      - name: Azure login
+        uses: azure/login@v2
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Build & push user-service
-        run: |
-          cd user-service
-          docker build -t $REGISTRY/user-service:${IMAGE_TAG} .
-          docker push $REGISTRY/user-service:${IMAGE_TAG}
+      - name: Login to ACR
+        run: az acr login -n $ACR_NAME
 
-      - name: Build & push order-service
+      - name: Build and push user-service
         run: |
-          cd $GITHUB_WORKSPACE/order-service
-          docker build -t $REGISTRY/order-service:${IMAGE_TAG} .
-          docker push $REGISTRY/order-service:${IMAGE_TAG}
+          docker build -t $ACR_LOGIN_SERVER/user-service:v1 ./user-service
+          docker push $ACR_LOGIN_SERVER/user-service:v1
 
-      - name: Build & push api-gateway
+      - name: Build and push order-service
         run: |
-          cd $GITHUB_WORKSPACE/api-gateway
-          docker build -t $REGISTRY/api-gateway:${IMAGE_TAG} .
-          docker push $REGISTRY/api-gateway:${IMAGE_TAG}
+          docker build -t $ACR_LOGIN_SERVER/order-service:v1 ./order-service
+          docker push $ACR_LOGIN_SERVER/order-service:v1
+
+      - name: Build and push api-gateway
+        run: |
+          docker build -t $ACR_LOGIN_SERVER/api-gateway:v1 ./api-gateway
+          docker push $ACR_LOGIN_SERVER/api-gateway:v1
