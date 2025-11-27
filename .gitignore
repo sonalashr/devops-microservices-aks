@@ -1,0 +1,51 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Logs
+logs
+*.log
+npm-cache
+
+# Environment variables
+.env
+.env.local
+
+# Editor directories
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+*.tar
+*.bak
+
+# Terraform
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# Kubernetes local configs
+*.kubeconfig
+kubeconfig.yaml
+
+# Azure CLI cache
+.azure/
+
+# Build output
+dist/
+build/
+
+# Temporary files
+tmp/
+*.tmp
