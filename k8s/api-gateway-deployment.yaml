@@ -15,14 +15,16 @@ spec:
       containers:
         - name: api-gateway
           image: mydevopsdemo01.azurecr.io/api-gateway:v1
-          ports:
-            - containerPort: 3000   # 👈 IMPORTANT (not 8080)
-              env:
-              - name: APPLICATIONINSIGHTS_CONNECTION_STRING
-                valueFrom:
-                 secretKeyRef:
+          imagePullPolicy: Always
+          env:
+            - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
                   name: appinsights-secret
                   key: APPLICATIONINSIGHTS_CONNECTION_STRING
+          ports:
+            - containerPort: 3000
+
 
 ---
 apiVersion: v1

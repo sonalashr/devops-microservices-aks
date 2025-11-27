@@ -13,17 +13,18 @@ spec:
         app: order-service
     spec:
       containers:
-      - name: order-service
-        image: mydevopsdemo01.azurecr.io/order-service:v1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3002
+        - name: order-service
+          image: mydevopsdemo01.azurecr.io/order-service:v1
+          imagePullPolicy: Always
           env:
-          - name: APPLICATIONINSIGHTS_CONNECTION_STRING
-            valueFrom:
-              secretKeyRef:
-                name: appinsights-secret
-                key: APPLICATIONINSIGHTS_CONNECTION_STRING
+            - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: appinsights-secret
+                  key: APPLICATIONINSIGHTS_CONNECTION_STRING
+          ports:
+            - containerPort: 3002
+
 
 ---
 apiVersion: v1
