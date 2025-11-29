@@ -111,17 +111,3 @@ Implement Horizontal Pod Autoscaling
 🧹 Cleanup
 kubectl delete -f k8s/
 az group delete -n rg-devops-assgn --yes
-
-🏁 Final Result:
-
-✔️ 3 Microservices deployed
-✔️ Docker + ACR + AKS integrated
-✔️ Internal service-to-service communication works
-✔️ API gateway validated via port-forward tests
-
-If you'd like, I can also create:
-
-✅ Architecture diagram (PNG)
-✅ Presentation slide (3–4 pages)
-✅ CI/CD workflow fix
-✅ Add screenshots automatically (like your terminal captures)
